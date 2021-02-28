@@ -8,20 +8,21 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --watch-poll"
+    "start": "NODE_ENV=development webpack serve ",
+    "build": "NODE_ENV=production webpack"
   },
   "devDependencies": {
-    "@types/fabric": "^3.6.8",
+    "@types/fabric": "^4.2.2",
     "clean-webpack-plugin": "^3.0.0",
-    "html-webpack-plugin": "^4.3.0",
-    "ts-loader": "^8.0.1",
+    "html-webpack-plugin": "^5.2.0",
+    "ts-loader": "^8.0.17",
     "typescript": "^3.9.7",
     "umd-compat-loader": "^2.1.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "fabric": "^3.6.3"
+    "fabric": "^4.3.1"
   }
 }

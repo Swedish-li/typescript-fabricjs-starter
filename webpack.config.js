@@ -1,16 +1,18 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.ts',
-  mode: 'development',
+  entry: {
+    index: {
+      import: './src/index.ts',
+      dependOn: 'shared',
+    },
+    shared: 'fabric',
+  },
+  mode: process.env.NODE_ENV,
   module: {
     rules: [
-      {
-        test: /node_modules[\\|/](fabric)/,
-        use: { loader: 'umd-compat-loader' },
-      },
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
@@ -22,14 +24,18 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: 'inline-source-map',
+  devtool: process.env.NODE_ENV === 'development' ? 'eval-source-map' : undefined,
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Fabric.js start',
     }),
   ],
-};
+  performance: {
+    maxAssetSize: 350000,
+    maxEntrypointSize: 400000,
+  },
+}
